@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Contact form</title>
+
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    
+    button {
+      width: 100%;
+      height: 40px;
+      text-align: center;
+      border-radius: 5px;
+      border: none;
+      background-color: hsl(169, 82%, 27%);
+      color: white;
+      margin-top: -10%;
+      cursor: pointer;
+    }
+    button:active{
+background-color:hsl(102, 79%, 7%);
+color:#ffff;
+cursor: pointer;
+
+
+    }
+  
+    
+    #notification {
+      display: none;
+      background-color: hsl(120, 100%, 90%);
+      color: hsl(120, 100%, 20%);
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    
+    .error-message {
+      display: none;
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    
+    form {
+      width: 90%;
+      margin: auto;
+    }
+
+    
+    .query-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .query-box {
+      width: 48%;
+      border: 2px solid #3457;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .query-option input {
+      width: 30px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 50%;
+      border: 2px solid #3457;
+      margin-left: 3px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      font-size: 15px;
+      color: #3457;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .checkbox-container input {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body style="background-color:hsl(148, 38%, 91%);">
+  <div id="information" style="width: 35%;height: 85vh; background-color:hsl(0, 0%, 100%);margin:auto; border-radius:1%;">
+    <header style="margin-top: 4%;">
+      <h3 style="margin-left:10%; margin-top:10%;"><b>Contact Us</b></h3>
+    </header>
+    <form id="contact-form">
+      <div style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;margin-left:4%;color:#3457">
+        First Name *<br>
+        <input type="text" id="first-name" style="margin-top:1%;border-radius:5px;width:27vh;font-size:20px;">
+        <div class="error-message" id="first-name-error">This field is required</div>
+      </div>
+      <div style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;margin-left:5%; margin-left:50%;margin-top:-11%;color:#3457">
+        Last Name *<br>
+        <input type="text" id="last-name" style="margin-top:0%;border-radius:5px;width:27vh;font-size:20px;">
+        <div class="error-message" id="last-name-error">This field is required</div>
+      </div>
+      <br><br>
+      <section style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;margin-left:4%;color:#3457">
+        Email Address *<br>
+        <input type="email" id="email" style="width:95%; height: 4vh; border-radius:5px;">
+        <div class="error-message" id="email-error">Please enter a valid email address</div>
+      </section>
+      <br>
+      <div class="query-container">
+        <div class="query-box">
+          <div class="query-option">
+            <input type="radio" name="query" value="General Enquiry" required> <label>General Enquiry</label>
+          </div>
+        </div>
+        <div class="query-box" style="margin-left: 10px;">
+          <div class="query-option">
+            <input type="radio" name="query" value="Support Request" required> <label>Support Request</label>
+          </div>
+        </div>
+        <div class="error-message" id="query-error" style="margin-left: 4%">Please select a query type</div>
+      </div>
+      <br>
+      <div style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;margin-left:3%;color:#3457">
+        Message *<br>
+        <textarea rows="4" id="message" style="width: 95%; border-radius:5px;"></textarea>
+        <div class="error-message" id="message-error">This field is required</div>
+      </div>
+      <br>
+      <div class="checkbox-container">
+        <input type="checkbox" id="consent" required> <label for="consent">I consent to being contacted by the team *</label>
+        <div class="error-message" id="consent-error">You must consent to be contacted</div>
+      </div>
+      <br>
+      <div style="text-align:center;">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <div id="notification">Message Sent! Thanks for completing the form. We'll be in touch soon!</div>
+  </div>
+
+  <div class="attribution" style="font-size: 18px;margin-top:-2%; width:100%">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#" style="font-size:20px">Matthew Sheldon</a>.
+  </div>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      let isValid = true;
+
+      
+      const firstName = document.getElementById('first-name');
+      const firstNameError = document.getElementById('first-name-error');
+      if (firstName.value.trim() === '') {
+        firstNameError.style.display = 'block';
+        isValid = false;
+      } else {
+        firstNameError.style.display = 'none';
+      }
+
+    
+      const lastName = document.getElementById('last-name');
+      const lastNameError = document.getElementById('last-name-error');
+      if (lastName.value.trim() === '') {
+        lastNameError.style.display = 'block';
+        isValid = false;
+      } else {
+        lastNameError.style.display = 'none';
+      }
+
+  
+      const email = document.getElementById('email');
+      const emailError = document.getElementById('email-error');
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        emailError.style.display = 'block';
+        isValid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+
+      const querySelected = document.querySelector('input[name="query"]:checked');
+      const queryError = document.getElementById('query-error');
+      if (!querySelected) {
+        queryError.style.display = 'block';
+        isValid = false;
+      } else {
+        queryError.style.display = 'none';
+      }
+
+      
+      const message = document.getElementById('message');
+      const messageError = document.getElementById('message-error');
+      if (message.value.trim() === '') {
+        messageError.style.display = 'block';
+        isValid = false;
+      } else {
+        messageError.style.display = 'none';
+      }
+
+      
+      const consent = document.getElementById('consent');
+      const consentError = document.getElementById('consent-error');
+      if (!consent.checked) {
+        consentError.style.display = 'block';
+        isValid = false;
+      } else {
+        consentError.style.display = 'none';
+      }
+
+
+      if (isValid) {
+        document.getElementById('notification').style.display = 'block';
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>
